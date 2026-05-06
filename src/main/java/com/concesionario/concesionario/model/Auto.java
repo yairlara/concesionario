@@ -1,10 +1,11 @@
 package com.concesionario.concesionario.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+// import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -23,9 +24,14 @@ public class Auto {
     @NotBlank(message = "El campo modelo no puede estar vacío")
     private String modelo;
 
+    @NotBlank(message = "El campo año no puede estar vacío")
     @Size(min = 4, max = 4, message = "El campo año debe tener exactamente 4 caracteres")
-    private String año;
-    private boolean vendido;
+    private String anio;
+
+    private double precio;
+
+    @Column(name = "vendido")
+    private boolean disponible;
 
     public Auto() {
     }
@@ -54,20 +60,28 @@ public class Auto {
         this.modelo = modelo;
     }
 
-    public String getAño() {
-        return año;
+    public String getAnio() {
+        return anio;
     }
 
-    public void setAño(String año) {
-        this.año = año;
-    }   
-
-    public boolean isVendido() {
-        return vendido;
+    public void setAnio(String anio) {
+        this.anio = anio;
     }
 
-    public void setVendido(boolean vendido) {
-        this.vendido = vendido;
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public boolean isDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(boolean disponible) {
+        this.disponible = disponible;
     }
 
 }
