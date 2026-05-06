@@ -44,19 +44,19 @@ public class AutoController {
         if (result.hasErrors()) {
             return "formulario";
         }
-        service.guardarAuto(auto);
+        autoService.guardarAuto(auto);
         return "redirect:/autos";
     }
 
     @GetMapping("/autos/editar/{id}")
     public String editar(@PathVariable Long id, Model model) {
-        model.addAttribute("auto", service.obtenerAutoPorId(id));
+        model.addAttribute("auto", autoService.obtenerAutoPorId(id));
         return "formulario";
     }
 
     @GetMapping("/autos/eliminar/{id}")
     public String eliminar(@PathVariable Long id) {
-        service.eliminar(id);
+        autoService.eliminar(id);
         return "redirect:/autos";
     }
 
