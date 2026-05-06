@@ -28,7 +28,8 @@ public class AutoService {
     }
 
     public Auto eliminar(Long id) {
-        repository.deleteById(id);
+        Repository.deleteById(id);
+        return null;
 
     }
 
