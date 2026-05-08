@@ -43,6 +43,10 @@
         </select>
             </div>
 
+            <form th:action="@{/autos/guardar}" th:object="${auto}" method="post" enctype="multipart/form-data">
+            <input type="hidden" th:field="*{id}">
+            <input type="hidden" th:field="*{imagen}">
+
             <div class="mb-3">
                 <label class="form-label">Modelo</label>
                 <input type="text" th:field="*{modelo}" class="form-control" required>
@@ -61,6 +65,16 @@
             <div class="mb-3 form-check">
                 <input type="checkbox" th:field="*{disponible}" class="form-check-input">
                 <label class="form-check-label">Disponible</label>
+            </div>
+
+            <div class="mb-3">
+            <label for="archivoImagen" class="form-label">Imagen</label>
+            <div th:if="${auto.imagen != null and !auto.imagen.isBlank()}" class="mb-2">
+            <img th:src="@{'/uploads/' + ${auto.imagen}}" alt="Imagen del auto"
+               style="max-height: 150px; border: 1px solid #dee2e6; padding: 4px;">
+            </div>
+            <input type="file" name="archivoImagen" id="archivoImagen" accept="image/*" class="form-control">
+            <div class="form-text">Dejar vacío para conservar la imagen actual.</div>
             </div>
 
             <button type="submit" class="btn btn-primary">Guardar</button>

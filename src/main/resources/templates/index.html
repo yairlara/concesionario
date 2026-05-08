@@ -41,6 +41,7 @@
         <thead>
           <tr>
             <th>ID</th>
+            <th>Imagen</th>
             <th>Marca</th>
             <th>Modelo</th>
             <th>Año</th>
@@ -52,6 +53,11 @@
         <tbody>
           <tr th:each="auto : ${autos}">
             <td th:text="${auto.id}"></td>
+            <td>
+              <img th:if="${auto.imagen != null and !auto.imagen.isBlank()}" th:src="@{'/uploads/' + ${auto.imagen}}"
+              alt="Imagen del auto" style="height: 60px;">
+            <span th:unless="${auto.imagen != null and !auto.imagen.isBlank()}">&mdash;</span>
+            </td>
             <td th:text="${auto.marca}"></td>
             <td th:text="${auto.modelo}"></td>
             <td th:text="${auto.anio}"></td>
