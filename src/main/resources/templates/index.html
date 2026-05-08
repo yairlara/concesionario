@@ -28,7 +28,7 @@
   </head>
   <body>
     <div class="container mt-4">
-      <img src="/images/banner.jpg" alt="Banner Concesionario" class="banner">
+      <img th:src="@{/uploads/banner.jpg}" alt="Banner Concesionario" class="banner">
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h1>Concesionario</h1>
         <a th:href="@{/autos/nuevo}" class="btn btn-primary">Agregar Auto</a>
@@ -75,13 +75,13 @@
     <div class="container mt-5 mb-5">
       <div class="row g-3">
         <div class="col-4">
-          <img src="/images/imagen1.jpg" alt="Auto 1" class="foto-auto" data-bs-toggle="modal" data-bs-target="#modalImagen" data-src="/images/imagen1.jpg">
+          <img th:src="@{/uploads/imagen1.jpg}" alt="Auto 1" class="foto-auto" data-bs-toggle="modal" data-bs-target="#modalImagen" data-src="/uploads/imagen1.jpg">
         </div>
         <div class="col-4">
-          <img src="/images/imagen2.jpg" alt="Auto 2" class="foto-auto" data-bs-toggle="modal" data-bs-target="#modalImagen" data-src="/images/imagen2.jpg">
+          <img th:src="@{/uploads/imagen2.jpg}" alt="Auto 2" class="foto-auto" data-bs-toggle="modal" data-bs-target="#modalImagen" data-src="/uploads/imagen2.jpg">
         </div>
         <div class="col-4">
-          <img src="/images/imagen3.jpg" alt="Auto 3" class="foto-auto" data-bs-toggle="modal" data-bs-target="#modalImagen" data-src="/images/imagen3.jpg">
+          <img th:src="@{/uploads/imagen3.jpg}" alt="Auto 3" class="foto-auto" data-bs-toggle="modal" data-bs-target="#modalImagen" data-src="/uploads/imagen3.jpg">
         </div>
       </div>
     </div>

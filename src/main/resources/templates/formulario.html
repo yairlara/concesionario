@@ -10,8 +10,9 @@
     <div class="container">
         <h1>Agregar Nuevo Auto</h1>
 
-        <form th:action="@{/autos/guardar}" th:object="${auto}" method="post">
+        <form th:action="@{/autos/guardar}" th:object="${auto}" method="post" enctype="multipart/form-data">
             <input type="hidden" th:field="*{id}">
+            <input type="hidden" th:field="*{imagen}">
 
          <div class="mb-3">
     <label class="form-label">Marca</label>
@@ -42,10 +43,6 @@
         <option value="Jeep">Jeep</option>
         </select>
             </div>
-
-            <form th:action="@{/autos/guardar}" th:object="${auto}" method="post" enctype="multipart/form-data">
-            <input type="hidden" th:field="*{id}">
-            <input type="hidden" th:field="*{imagen}">
 
             <div class="mb-3">
                 <label class="form-label">Modelo</label>
