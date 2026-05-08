@@ -13,6 +13,17 @@
         border-radius: 10px;
         margin-bottom: 20px;
       }
+      .foto-auto {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+      .foto-auto:hover {
+        transform: scale(1.05);
+      }
     </style>
   </head>
   <body>
@@ -25,35 +36,70 @@
     </div>
 
     <div class="container">
-        <h2>Autos registrados</h2>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Marca</th>
-                    <th>Modelo</th>
-                    <th>Año</th>
-                    <th>Precio</th>
-                    <th>Disponible</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="auto : ${autos}">
-                    <td th:text="${auto.id}"></td>
-                    <td th:text="${auto.marca}"></td>
-                    <td th:text="${auto.modelo}"></td>
-                    <td th:text="${auto.anio}"></td>
-                    <td th:text="${auto.precio}"></td>
-                    <td th:text="${auto.disponible} ? 'Si' : 'No'"></td>
-                    <td>
-                        <a th:href="@{'/autos/editar/' + ${auto.id}}" class="btn btn-secondary btn-sm">Editar</a>
-                        <a th:href="@{'/autos/eliminar/' + ${auto.id}}" class="btn btn-danger btn-sm">Eliminar</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+      <h2>Autos registrados</h2>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Año</th>
+            <th>Precio</th>
+            <th>Disponible</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="auto : ${autos}">
+            <td th:text="${auto.id}"></td>
+            <td th:text="${auto.marca}"></td>
+            <td th:text="${auto.modelo}"></td>
+            <td th:text="${auto.anio}"></td>
+            <td th:text="${auto.precio}"></td>
+            <td th:text="${auto.disponible} ? 'Si' : 'No'"></td>
+            <td>
+              <a th:href="@{'/autos/editar/' + ${auto.id}}" class="btn btn-secondary btn-sm">Editar</a>
+              <a th:href="@{'/autos/eliminar/' + ${auto.id}}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+
+    <div class="container mt-5 mb-5">
+      <div class="row g-3">
+        <div class="col-4">
+          <img src="/images/imagen1.jpg" alt="Auto 1" class="foto-auto" data-bs-toggle="modal" data-bs-target="#modalImagen" data-src="/images/imagen1.jpg">
+        </div>
+        <div class="col-4">
+          <img src="/images/imagen2.jpg" alt="Auto 2" class="foto-auto" data-bs-toggle="modal" data-bs-target="#modalImagen" data-src="/images/imagen2.jpg">
+        </div>
+        <div class="col-4">
+          <img src="/images/imagen3.jpg" alt="Auto 3" class="foto-auto" data-bs-toggle="modal" data-bs-target="#modalImagen" data-src="/images/imagen3.jpg">
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modalImagen" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header border-0">
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body text-center p-0 pb-3">
+            <img id="imagenAmpliada" src="" alt="Auto" style="width: 100%; border-radius: 8px;">
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      const modalImagen = document.getElementById('modalImagen');
+      modalImagen.addEventListener('show.bs.modal', function (e) {
+        const src = e.relatedTarget.getAttribute('data-src');
+        document.getElementById('imagenAmpliada').src = src;
+      });
+    </script>
   </body>
 </html>
