@@ -34,9 +34,9 @@
                     <td th:text="${auto.id}"></td>
                     <td th:text="${auto.marca}"></td>
                     <td th:text="${auto.modelo}"></td>
-                    <td th:text="${auto.anio}"></td>
+                    <td th:text="${auto.año}"></td>
                     <td th:text="${auto.precio}"></td>
-                    <td th:text="${auto.disponible} ? 'Si' : 'No'"></td>
+                    <td th:text="${auto.vendido} ? 'No' : 'Si'"></td>
                     <td>
                         <a th:href="@{'/autos/editar/' + ${auto.id}}" class="btn btn-secondary btn-sm">Editar</a>
                         <a th:href="@{'/autos/eliminar/' + ${auto.id}}" class="btn btn-danger btn-sm">Eliminar</a>

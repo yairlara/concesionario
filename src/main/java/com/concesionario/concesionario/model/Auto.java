@@ -25,7 +25,9 @@ public class Auto {
 
     @Size(min = 4, max = 4, message = "El campo año debe tener exactamente 4 caracteres")
     private String año;
-    private boolean vendido;
+    @NotBlank(message = "El campo precio no puede estar vacío")
+    private int precio;
+    private boolean vendido=false;
 
     public Auto() {
     }
@@ -60,6 +62,13 @@ public class Auto {
 
     public void setAño(String año) {
         this.año = año;
+    }
+        public int getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(int precio) {
+        this.precio = precio;
     }   
 
     public boolean isVendido() {
