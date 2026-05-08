@@ -29,6 +29,8 @@ public class Auto {
 
     private boolean disponible;
 
+    private String imagen;
+
     public Auto() {}
 
     public Long getId() {
@@ -77,5 +79,13 @@ public class Auto {
 
     public void setDisponible(boolean disponible) {
         this.disponible = disponible;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 }
