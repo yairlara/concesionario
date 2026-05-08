@@ -13,9 +13,34 @@
         <form th:action="@{/autos/guardar}" th:object="${auto}" method="post">
             <input type="hidden" th:field="*{id}">
 
-            <div class="mb-3">
-                <label class="form-label">Marca</label>
-                <input type="text" th:field="*{marca}" class="form-control" required>
+         <div class="mb-3">
+    <label class="form-label">Marca</label>
+    <select th:field="*{marca}" class="form-select" required>
+        <option value="" selected disabled>Seleccione una marca...</option>
+        <option value="Toyota">Toyota</option>
+        <option value="Honda">Honda</option>
+        <option value="Ford">Ford</option>
+        <option value="Chevrolet">Chevrolet</option>
+        <option value="BMW">BMW</option>
+        <option value="Mercedes-Benz">Mercedes-Benz</option>
+        <option value="Audi">Audi</option>
+        <option value="Volkswagen">Volkswagen</option>
+        <option value="Nissan">Nissan</option>
+        <option value="Hyundai">Hyundai</option>
+        <option value="Kia">Kia</option>
+        <option value="Mazda">Mazda</option>
+        <option value="Subaru">Subaru</option>
+        <option value="Porsche">Porsche</option>
+        <option value="Ferrari">Ferrari</option>
+        <option value="Lamborghini">Lamborghini</option>
+        <option value="Mclaren">Mclaren</option>
+        <option value="Aston Martin">Aston Martin</option>
+        <option value="Range Rover">Range Rover</option>
+        <option value="Suzuki">Suzuki</option>
+        <option value="Renault">Renault</option>
+        <option value="Volvo">Volvo</option>
+        <option value="Jeep">Jeep</option>
+        </select>
             </div>
 
             <div class="mb-3">
