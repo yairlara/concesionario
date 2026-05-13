@@ -46,6 +46,7 @@
             <th>Modelo</th>
             <th>Año</th>
             <th>Precio</th>
+            <th>Categoría</th>
             <th>Disponible</th>
             <th>Acciones</th>
           </tr>
@@ -62,6 +63,7 @@
             <td th:text="${auto.modelo}"></td>
             <td th:text="${auto.anio}"></td>
             <td th:text="${auto.precio}"></td>
+            <td th:text="${auto.categoria != null ? auto.categoria.nombre : 'Sin categoría'}"></td>
             <td th:text="${auto.disponible} ? 'Si' : 'No'"></td>
             <td>
               <a th:href="@{'/autos/editar/' + ${auto.id}}" class="btn btn-secondary btn-sm">Editar</a>

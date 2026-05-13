@@ -15,7 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.concesionario.concesionario.model.Auto;
 import com.concesionario.concesionario.repository.AutoRepository;
 import com.concesionario.concesionario.service.AutoService;
-
+import com.concesionario.concesionario.service.CategoriaService;
 import com.concesionario.concesionario.service.FileStorageService;
 
 import jakarta.validation.Valid;
@@ -32,6 +32,9 @@ public class AutoController {
     @Autowired
     private AutoRepository autoRepository;
 
+    @Autowired
+    private CategoriaService categoriaService;
+
     @GetMapping("/autos")
     public String Autos(Model model) {
         model.addAttribute("autos", autoRepository.findAll());
@@ -41,6 +44,7 @@ public class AutoController {
     @GetMapping("/autos/nuevo")
     public String nuevo (Model model) {
         model.addAttribute("auto", new Auto());
+        model.addAttribute("categorias", categoriaService.listaCategorias());
         return "formulario";
     }
 
@@ -77,6 +81,7 @@ public class AutoController {
     @GetMapping("/autos/editar/{id}")
     public String editar(@PathVariable Long id, Model model) {
         model.addAttribute("auto", autoService.obtenerAutoPorId(id));
+        model.addAttribute("categorias", categoriaService.listaCategorias());
         return "formulario";
     }
 

@@ -59,6 +59,14 @@
                 <input type="number" th:field="*{precio}" class="form-control" required>
             </div>
 
+            <div class="mb-3">
+                <label class="form-label">Categoría</label>
+                <select th:field="*{categoria}" class="form-select" required>
+                    <option value="" selected disabled>Seleccione una categoría...</option>
+                    <option th:each="cat : ${categorias}" th:value="${cat.id}" th:text="${cat.nombre}"></option>
+                </select>
+            </div>
+
             <div class="mb-3 form-check">
                 <input type="checkbox" th:field="*{disponible}" class="form-check-input">
                 <label class="form-check-label">Disponible</label>
