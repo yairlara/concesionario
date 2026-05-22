@@ -27,6 +27,53 @@
     </style>
   </head>
   <body>
+
+    <!-- ============================================================
+         Navbar de navegación
+         ============================================================
+         th:if="${session.usuarioLogueado != null}" evalúa si hay
+         un usuario autenticado en la sesión HTTP.
+
+         session.usuarioLogueado accede al atributo que guardamos
+         en el controlador con:
+           session.setAttribute("usuarioLogueado", usuarioBD);
+         ============================================================ -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" th:href="@{/autos}">Concesionario</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+
+            <!-- Si el usuario está logueado, mostrar su nombre -->
+            <li class="nav-item" th:if="${session.usuarioLogueado != null}">
+              <span class="nav-link text-light">
+                Bienvenido, <span th:text="${session.usuarioLogueado.nombre}"></span>
+              </span>
+            </li>
+
+            <!-- Si el usuario está logueado, mostrar cerrar sesión -->
+            <li class="nav-item" th:if="${session.usuarioLogueado != null}">
+              <a class="nav-link" th:href="@{/logout}">Cerrar sesión</a>
+            </li>
+
+            <!-- Si NO hay sesión, mostrar iniciar sesión -->
+            <li class="nav-item" th:unless="${session.usuarioLogueado != null}">
+              <a class="nav-link" th:href="@{/login}">Iniciar sesión</a>
+            </li>
+
+            <!-- Si NO hay sesión, mostrar registrarse -->
+            <li class="nav-item" th:unless="${session.usuarioLogueado != null}">
+              <a class="nav-link" th:href="@{/registro}">Registrarse</a>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+
     <div class="container mt-4">
       <img th:src="@{/uploads/banner.jpg}" alt="Banner Concesionario" class="banner">
       <div class="d-flex justify-content-between align-items-center mb-3">

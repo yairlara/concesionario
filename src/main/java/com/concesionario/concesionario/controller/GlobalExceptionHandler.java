@@ -14,6 +14,6 @@ public class GlobalExceptionHandler {
         redirectAttributes.addFlashAttribute(
                 "mensajeError",
                 "La imagen es demasiado grande. El tamaño máximo permitido es 10 MB.");
-        return "redirect:/libros/nuevo";
+        return "redirect:/autos/nuevo";
     }
 }

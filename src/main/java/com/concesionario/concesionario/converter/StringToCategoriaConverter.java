@@ -7,8 +7,7 @@ import com.concesionario.concesionario.model.Categoria;
 import com.concesionario.concesionario.repository.CategoriaRepository;
 
 @Component
-public class StringToCategoriaConverter implements Converter<String, Categoria> {
-
+public class StringToCategoriaConverter implements Converter<String, Categoria> {   
     private final CategoriaRepository categoriaRepository;
 
     public StringToCategoriaConverter(CategoriaRepository categoriaRepository) {

@@ -18,6 +18,7 @@ import com.concesionario.concesionario.service.AutoService;
 import com.concesionario.concesionario.service.CategoriaService;
 import com.concesionario.concesionario.service.FileStorageService;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
@@ -36,13 +37,21 @@ public class AutoController {
     private CategoriaService categoriaService;
 
     @GetMapping("/autos")
-    public String Autos(Model model) {
+    public String Autos(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+        if (session.getAttribute("usuarioLogueado") == null) {
+            redirectAttributes.addFlashAttribute("mensaje", "Debes iniciar sesión primero");
+            return "redirect:/login";
+        }
         model.addAttribute("autos", autoRepository.findAll());
         return "index";
     }
 
     @GetMapping("/autos/nuevo")
-    public String nuevo (Model model) {
+    public String nuevo (Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+        if (session.getAttribute("usuarioLogueado") == null) {
+            redirectAttributes.addFlashAttribute("mensaje", "Debes iniciar sesión primero");
+            return "redirect:/login";
+        }
         model.addAttribute("auto", new Auto());
         model.addAttribute("categorias", categoriaService.listaCategorias());
         return "formulario";
@@ -53,7 +62,12 @@ public class AutoController {
         BindingResult result,
         @RequestParam(value = "archivoImagen", required = false) MultipartFile archivoImagen,
         Model model,
+        HttpSession session,
         RedirectAttributes redirectAttributes) {
+        if (session.getAttribute("usuarioLogueado") == null) {
+            redirectAttributes.addFlashAttribute("mensaje", "Debes iniciar sesión primero");
+            return "redirect:/login";
+        }
         if (result.hasErrors()) {
             return "formulario";
         }
@@ -79,14 +93,22 @@ public class AutoController {
     }
 
     @GetMapping("/autos/editar/{id}")
-    public String editar(@PathVariable Long id, Model model) {
+    public String editar(@PathVariable Long id, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+        if (session.getAttribute("usuarioLogueado") == null) {
+            redirectAttributes.addFlashAttribute("mensaje", "Debes iniciar sesión primero");
+            return "redirect:/login";
+        }
         model.addAttribute("auto", autoService.obtenerAutoPorId(id));
         model.addAttribute("categorias", categoriaService.listaCategorias());
         return "formulario";
     }
 
     @GetMapping("/autos/eliminar/{id}")
-    public String eliminar(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+    public String eliminar(@PathVariable Long id, HttpSession session, RedirectAttributes redirectAttributes) {
+        if (session.getAttribute("usuarioLogueado") == null) {
+            redirectAttributes.addFlashAttribute("mensaje", "Debes iniciar sesión primero");
+            return "redirect:/login";
+        }
         Auto auto = autoService.obtenerAutoPorId(id);
         if (auto != null && auto.getImagen() != null && !auto.getImagen().isBlank()) {
             fileStorageService.eliminar(auto.getImagen());

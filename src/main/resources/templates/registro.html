@@ -1,0 +1,97 @@
+<!doctype html>
+<!--
+  xmlns:th activa los atributos de Thymeleaf en este HTML
+  lang="es" indica que el contenido está en español
+-->
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registro de Usuario</title>
+    <!-- Bootstrap desde CDN para darle estilo a la página -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+
+          <!--
+            th:action → la URL a donde se enviará el formulario
+            th:object → enlaza el formulario con el objeto "usuario"
+                         que el controlador agregó al modelo
+            method="post" → envía los datos por POST
+          -->
+          <form th:action="@{/registro}" th:object="${usuario}" method="post" class="card shadow p-4">
+
+            <h1 class="text-center mb-4">Crear cuenta</h1>
+
+            <!--
+              th:if="${mensaje != null}" → muestra un mensaje de éxito
+              si el controlador agregó uno al modelo
+            -->
+            <div th:if="${mensaje}" class="alert alert-success text-center" th:text="${mensaje}"></div>
+
+            <!-- Campo: Nombre -->
+            <div class="mb-3">
+              <label class="form-label">Nombre completo</label>
+              <!--
+                th:field="*{nombre}" enlaza este input con el atributo
+                "nombre" del objeto Usuario.
+                El asterisco (*{...}) hace referencia al objeto definido
+                en th:object.
+              -->
+              <input type="text" th:field="*{nombre}" class="form-control" placeholder="Ej: Juan Pérez">
+              <!--
+                th:if="${#fields.hasErrors('nombre')}" → si hay un error
+                de validación en el campo "nombre", se muestra este mensaje
+                th:errors → muestra el texto del error definido en la
+                anotación @NotBlank(message = "...")
+              -->
+              <div th:if="${#fields.hasErrors('nombre')}" class="text-danger mt-1">
+                <small th:errors="*{nombre}"></small>
+              </div>
+            </div>
+
+            <!-- Campo: Correo -->
+            <div class="mb-3">
+              <label class="form-label">Correo electrónico</label>
+              <input type="email" th:field="*{correo}" class="form-control" placeholder="Ej: usuario@correo.com">
+              <div th:if="${#fields.hasErrors('correo')}" class="text-danger mt-1">
+                <small th:errors="*{correo}"></small>
+              </div>
+              <!--
+                errorCorreo se agrega manualmente desde el controlador
+                cuando el correo ya está registrado en la BD
+              -->
+              <div th:if="${errorCorreo}" class="text-danger mt-1">
+                <small th:text="${errorCorreo}"></small>
+              </div>
+            </div>
+
+            <!-- Campo: Contraseña -->
+            <div class="mb-3">
+              <label class="form-label">Contraseña</label>
+              <input type="password" th:field="*{password}" class="form-control" placeholder="Mínimo 6 caracteres">
+              <div th:if="${#fields.hasErrors('password')}" class="text-danger mt-1">
+                <small th:errors="*{password}"></small>
+              </div>
+            </div>
+
+            <!-- Botón de enviar -->
+            <button type="submit" class="btn btn-primary w-100">Registrarse</button>
+
+            <!-- Enlace a login si ya tiene cuenta -->
+            <div class="text-center mt-3">
+              <small>¿Ya tienes cuenta?
+                <a th:href="@{/login}">Inicia sesión aquí</a>
+              </small>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

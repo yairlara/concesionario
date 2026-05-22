@@ -1,0 +1,73 @@
+<!doctype html>
+<!--
+  xmlns:th activa los atributos de Thymeleaf en este HTML
+  lang="es" indica que el contenido está en español
+-->
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Iniciar sesión</title>
+    <!-- Bootstrap desde CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+
+          <!--
+            th:action="@{/login}" → el formulario se envía a /login
+            th:object="${usuario}" → enlaza el formulario con el
+                                      objeto Usuario del modelo
+            method="post"          → envía los datos por POST
+          -->
+          <form th:action="@{/login}" th:object="${usuario}" method="post" class="card shadow p-4">
+
+            <h1 class="text-center mb-4">Iniciar sesión</h1>
+
+            <!--
+              th:if="${mensaje}" → mensaje flash de éxito
+              (ej: "Registro exitoso" después de registrarse)
+            -->
+            <div th:if="${mensaje}" class="alert alert-success text-center" th:text="${mensaje}"></div>
+
+            <!--
+              th:if="${error}" → mensaje de error de credenciales
+              (ej: "Correo o contraseña incorrectos")
+            -->
+            <div th:if="${error}" class="alert alert-danger text-center" th:text="${error}"></div>
+
+            <!-- Campo: Correo -->
+            <div class="mb-3">
+              <label class="form-label">Correo electrónico</label>
+              <!--
+                th:field="*{correo}" enlaza el input con el atributo
+                "correo" del objeto Usuario
+              -->
+              <input type="email" th:field="*{correo}" class="form-control" placeholder="correo@ejemplo.com" required>
+            </div>
+
+            <!-- Campo: Contraseña -->
+            <div class="mb-3">
+              <label class="form-label">Contraseña</label>
+              <input type="password" th:field="*{password}" class="form-control" placeholder="Ingresa tu contraseña" required>
+            </div>
+
+            <!-- Botón de enviar el formulario -->
+            <button type="submit" class="btn btn-primary w-100">Iniciar sesión</button>
+
+            <!-- Enlace al registro si no tiene cuenta -->
+            <div class="text-center mt-3">
+              <small>¿No tienes cuenta?
+                <a th:href="@{/registro}">Regístrate aquí</a>
+              </small>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
