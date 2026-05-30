@@ -1,0 +1,82 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ventas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" th:href="@{/autos}">Concesionario</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item" th:if="${session.usuarioLogueado != null}">
+              <span class="nav-link text-light">Bienvenido, <span th:text="${session.usuarioLogueado.nombre}"></span></span>
+            </li>
+            <li class="nav-item" th:if="${session.usuarioLogueado != null}">
+              <a class="nav-link" th:href="@{/logout}">Cerrar sesión</a>
+            </li>
+            <li class="nav-item" th:unless="${session.usuarioLogueado != null}">
+              <a class="nav-link" th:href="@{/login}">Iniciar sesión</a>
+            </li>
+            <li class="nav-item" th:unless="${session.usuarioLogueado != null}">
+              <a class="nav-link" th:href="@{/registro}">Registrarse</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container mt-4">
+      <div th:if="${mensaje}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <span th:text="${mensaje}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>Ventas</h1>
+        <a th:href="@{/ventas/nueva}" class="btn btn-primary">Nueva Venta</a>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Fecha</th>
+              <th>Precio Final</th>
+              <th>Auto</th>
+              <th>Cliente</th>
+              <th>Vendedor</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="venta : ${ventas}">
+              <td th:text="${venta.id}"></td>
+              <td th:text="${venta.fecha}"></td>
+              <td th:text="${venta.precioFinal}"></td>
+              <td th:text="${venta.auto != null ? venta.auto.marca + ' ' + venta.auto.modelo : 'Sin auto'}"></td>
+              <td th:text="${venta.cliente != null ? venta.cliente.nombre : 'Sin cliente'}"></td>
+              <td th:text="${venta.vendedor != null ? venta.vendedor.nombre : 'Sin vendedor'}"></td>
+              <td>
+                <a th:href="@{'/ventas/editar/' + ${venta.id}}" class="btn btn-secondary btn-sm">Editar</a>
+                <a th:href="@{'/ventas/eliminar/' + ${venta.id}}" class="btn btn-danger btn-sm">Eliminar</a>
+              </td>
+            </tr>
+            <tr th:unless="${#lists.size(ventas) > 0}">
+              <td colspan="7" class="text-center">No hay ventas registradas</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

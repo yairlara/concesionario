@@ -47,6 +47,22 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
 
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/sucursales}">Sucursales</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/vendedores}">Vendedores</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/clientes}">Clientes</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/ventas}">Ventas</a>
+            </li>
+
             <!-- Si el usuario está logueado, mostrar su nombre -->
             <li class="nav-item" th:if="${session.usuarioLogueado != null}">
               <span class="nav-link text-light">
