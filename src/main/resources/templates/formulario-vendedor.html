@@ -1,0 +1,81 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Formulario Vendedor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" th:href="@{/autos}">Concesionario</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item" th:if="${session.usuarioLogueado != null}">
+              <span class="nav-link text-light">Bienvenido, <span th:text="${session.usuarioLogueado.nombre}"></span></span>
+            </li>
+            <li class="nav-item" th:if="${session.usuarioLogueado != null}">
+              <a class="nav-link" th:href="@{/logout}">Cerrar sesión</a>
+            </li>
+            <li class="nav-item" th:unless="${session.usuarioLogueado != null}">
+              <a class="nav-link" th:href="@{/login}">Iniciar sesión</a>
+            </li>
+            <li class="nav-item" th:unless="${session.usuarioLogueado != null}">
+              <a class="nav-link" th:href="@{/registro}">Registrarse</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container mt-4">
+      <h1 th:text="${vendedor.id != null ? 'Editar Vendedor' : 'Nuevo Vendedor'}"></h1>
+
+      <form th:action="@{/vendedores/guardar}" th:object="${vendedor}" method="post">
+        <input type="hidden" th:field="*{id}">
+
+        <div class="mb-3">
+          <label class="form-label">Nombre</label>
+          <input type="text" th:field="*{nombre}" class="form-control" required>
+          <div th:if="${#fields.hasErrors('nombre')}" class="text-danger" th:errors="*{nombre}"></div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Teléfono</label>
+          <input type="text" th:field="*{telefono}" class="form-control" required>
+          <div th:if="${#fields.hasErrors('telefono')}" class="text-danger" th:errors="*{telefono}"></div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input type="email" th:field="*{email}" class="form-control" required>
+          <div th:if="${#fields.hasErrors('email')}" class="text-danger" th:errors="*{email}"></div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Comisión</label>
+          <input type="number" step="0.01" th:field="*{comision}" class="form-control" required>
+          <div th:if="${#fields.hasErrors('comision')}" class="text-danger" th:errors="*{comision}"></div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Sucursal</label>
+          <select th:field="*{sucursal}" class="form-select" required>
+            <option value="" selected disabled>Seleccione una sucursal...</option>
+            <option th:each="suc : ${sucursales}" th:value="${suc.id}" th:text="${suc.nombre}"></option>
+          </select>
+          <div th:if="${#fields.hasErrors('sucursal')}" class="text-danger" th:errors="*{sucursal}"></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a th:href="@{/vendedores}" class="btn btn-secondary">Cancelar</a>
+      </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
